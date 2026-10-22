@@ -43,13 +43,32 @@ function pintarTareas() {
   // TODO: Recorrer el array filtrado y crear dinámicamente un elemento <li> por cada tarea
   tareasFiltradas.forEach(tarea => {
     const li = document.createElement('li');
-    li.textContent = `${tarea.titulo} - Prioridad: ${tarea.prioridad} - Estado: ${tarea.completada ? 'Completada' : 'Pendiente'}`;
-  // TODO: Configurar las clases CSS según la prioridad y el estado (completada)
-  // TODO: Añadir un botón dentro de cada <li> para poder alternar el estado (Completada/Pendiente)
-  // TODO: Inyectar el <li> resultante en listaContenedor usando .appendChild()
-      listaContenedor.appendChild(li);
+    li.classList.add('item-tarea', tarea.prioridad);
+    if (tarea.completada) {
+      li.classList.add('completada');
+    }
+
+    const textoTarea = document.createElement('span');
+    textoTarea.classList.add('texto-tarea');
+    textoTarea.textContent = `${tarea.titulo} - Prioridad: ${tarea.prioridad} - Estado: ${tarea.completada ? 'Completada' : 'Pendiente'}`;
+    li.appendChild(textoTarea);
+
+    const botonEstado = document.createElement('button');
+    botonEstado.type = 'button';
+    botonEstado.textContent = tarea.completada ? 'Marcar como pendiente' : 'Marcar como completada';
+    botonEstado.addEventListener('click', () => {
+      tareas = tareas.map(tareaActual =>
+        tareaActual.id === tarea.id
+          ? { ...tareaActual, completada: !tareaActual.completada }
+          : tareaActual
+      );
+      pintarTareas();
+    });
+    li.appendChild(botonEstado);
+
+    listaContenedor.appendChild(li);
   });
-  }
+}
 // 5. MANEJO DE EVENTOS: Captura de formulario
 formulario.addEventListener('submit', (event) => {
   event.preventDefault();

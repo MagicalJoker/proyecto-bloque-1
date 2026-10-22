@@ -78,14 +78,14 @@ ul {
   align-items: center;
 }
 
+.item-tarea button { cursor: pointer; }
+
 .item-tarea.Alta { border-left-color: var(--high-priority); }
 .item-tarea.Media { border-left-color: var(--med-priority); }
 .item-tarea.Baja { border-left-color: var(--low-priority); }
 
-.completada {
-  text-decoration: line-through;
-  opacity: 0.6;
-}
+.completada { opacity: 0.6; }
+.completada .texto-tarea { text-decoration: line-through; }
 
 .loading {
   text-align: center;
